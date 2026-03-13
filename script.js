@@ -1,7 +1,7 @@
 // ------------------------
 // LOGIN SYSTEM
 // ------------------------
-const PASSWORD = "123";
+const PASSWORD = "1234";
 let playerName = "";
 
 function checkLogin(){
