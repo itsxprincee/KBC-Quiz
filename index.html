@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>KBC Quiz Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <h1>🎙 KBC Login</h1>
+
+  <input type="text" id="playerNameInput" placeholder="Enter your name">
+  <input type="password" id="password" placeholder="Enter password">
+  <button onclick="checkLogin()">Login</button>
+
+  <p id="loginError" style="color:red;"></p>
+</div>
+
+<!-- GAME SCREEN -->
+<div id="gameScreen">
+
+  <audio id="bgMusic" loop>
+    <source src="kbc-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="topBar">
+
+    <div class="playerName">
+      👤 Player: <span id="playerDisplay"></span>
+    </div>
+
+    <div class="timer">
+      ⏱ <span id="time">30</span>
+      <div id="timeBarContainer">
+        <div id="timeBar"></div>
+      </div>
+    </div>
+
+    <!-- LIFELINES WITH IMAGES -->
+    <div class="lifelines">
+      <button onclick="fiftyFifty()">
+        <img src="5050.png">
+      </button>
+
+      <button onclick="audiencePoll()">
+        <img src="audience.png">
+      </button>
+
+      <button onclick="skipQuestion()">
+        <img src="skip.png">
+      </button>
+    </div>
+
+  </div>
+
+  <div class="questionBox">
+    <h2 id="question"></h2>
+  </div>
+
+  <div class="options">
+    <button class="option" onclick="selectOption('A',this)"></button>
+    <button class="option" onclick="selectOption('B',this)"></button>
+    <button class="option" onclick="selectOption('C',this)"></button>
+    <button class="option" onclick="selectOption('D',this)"></button>
+  </div>
+
+  <div class="buttonContainer">
+    <button id="lockBtn" onclick="lockAnswer()">🔒 Lock Answer</button>
+    <button id="nextBtn" onclick="nextQuestion()">Next Question</button>
+  </div>
+
+  <div id="pollChart"></div>
+  <div id="winningAmount">💰 Winning Amount: ₹0</div>
+
+</div>
+
+<!-- MONEY LADDER -->
+<div class="ladder">
+  <h2>💰 Prize Ladder</h2>
+  <ul id="ladderList">
+    <li>10000000</li>
+    <li>9500000</li>
+    <li>9000000</li>
+    <li>7500000</li>
+    <li>5000000</li>
+    <li>2500000</li>
+    <li>1250000</li>
+    <li>640000</li>
+    <li>320000</li>
+    <li>160000</li>
+    <li>80000</li>
+    <li>40000</li>
+    <li>20000</li>
+    <li>10000</li>
+    <li>5000</li>
+  </ul>
+</div>
+
+<div id="confettiContainer"></div>
+
+<audio id="correctSound">
+  <source src="correct.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="wrongSound">
+  <source src="wrong.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
