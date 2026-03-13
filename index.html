@@ -12,7 +12,7 @@
 <div id="rulesScreen">
   <h1>📜 KBC Rules & Regulations</h1>
   <ul>
-    <li>Rules and Regulations have not been sent by the club heads😂</li>
+    <li>Rules and Regulations have not been sent by the club heads 😂</li>
   </ul>
   <button onclick="goToLogin()">Next</button>
 </div>
@@ -30,6 +30,15 @@
 <div id="gameScreen">
   <audio id="bgMusic" loop>
     <source src="kbc-music.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="loginSound">
+    <source src="login.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="correctSound">
+    <source src="correct.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="wrongSound">
+    <source src="wrong.mp3" type="audio/mpeg">
   </audio>
 
   <div class="topBar">
@@ -71,33 +80,27 @@
 
 <!-- MONEY LADDER -->
 <div class="ladder">
-  <h2>⭐ Points Ladder</h2>
-  <ul id="ladderList">
-    <li>10000000</li>
-    <li>9500000</li>
-    <li>9000000</li>
-    <li>7500000</li>
-    <li>5000000</li>
-    <li>2500000</li>
-    <li>1250000</li>
-    <li>640000</li>
-    <li>320000</li>
-    <li>160000</li>
-    <li>80000</li>
-    <li>40000</li>
-    <li>20000</li>
-    <li>10000</li>
-    <li>5000</li>
-  </ul>
+<h2>⭐ Points Ladder</h2>
+<ul id="ladderList">
+<li>10000000</li>
+<li>9500000</li>
+<li>9000000</li>
+<li>7500000</li>
+<li>5000000</li>
+<li>2500000</li>
+<li>1250000</li>
+<li>640000</li>
+<li>320000</li>
+<li>160000</li>
+<li>80000</li>
+<li>40000</li>
+<li>20000</li>
+<li>10000</li>
+<li>5000</li>
+</ul>
 </div>
 
 <div id="confettiContainer"></div>
-
-<!-- SOUNDS -->
-<audio id="correctSound"><source src="correct.mp3" type="audio/mpeg"></audio>
-<audio id="wrongSound"><source src="wrong.mp3" type="audio/mpeg"></audio>
-<audio id="loginSound"><source src="login.mp3" type="audio/mpeg"></audio>
-<audio id="countdownAudio"><source src="countdown.mp3" type="audio/mpeg"></audio>
 
 <script src="script.js"></script>
 </body>
