@@ -219,7 +219,16 @@ function highlight(){
 // WINNING AMOUNT
 // ------------------------
 function getWinningAmount(){
-    return current==0?"₹0":money[Math.min(current-1,money.length-1)];
+    let items = document.querySelectorAll("#ladderList li");
+    let index = items.length - current;
+
+    if(current == 0) return "0";
+
+    if(items[index]){
+        return items[index].innerText;
+    }
+
+    return "0";
 }
 
 function updateWinningAmount(){
