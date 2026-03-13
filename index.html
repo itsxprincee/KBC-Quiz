@@ -5,18 +5,39 @@
 <title>KBC Quiz Game</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<!-- RULES SCREEN -->
+<div id="rulesScreen">
+  <h1>📜 KBC Rules & Regulations</h1>
+
+  <ul>
+    <li>Answer each question within the given time.</li>
+    <li>You can use each lifeline only once.</li>
+    <li>Lock your answer before moving to next question.</li>
+    <li>If your answer is wrong the game ends.</li>
+    <li>Try to reach the highest points on the ladder.</li>
+  </ul>
+
+  <button onclick="goToLogin()">Next</button>
+</div>
+
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen">
+
   <h1>🎙 KBC Login</h1>
 
   <input type="text" id="playerNameInput" placeholder="Enter your name">
   <input type="password" id="password" placeholder="Enter password">
+
   <button onclick="checkLogin()">Login</button>
 
   <p id="loginError" style="color:red;"></p>
+
 </div>
+
 
 <!-- GAME SCREEN -->
 <div id="gameScreen">
@@ -33,13 +54,14 @@
 
     <div class="timer">
       ⏱ <span id="time">30</span>
+
       <div id="timeBarContainer">
         <div id="timeBar"></div>
       </div>
     </div>
 
-    <!-- LIFELINES WITH IMAGES -->
     <div class="lifelines">
+
       <button onclick="fiftyFifty()">
         <img src="5050.PNG">
       </button>
@@ -51,13 +73,16 @@
       <button onclick="skipQuestion()">
         <img src="skip.PNG">
       </button>
+
     </div>
 
   </div>
 
+
   <div class="questionBox">
     <h2 id="question"></h2>
   </div>
+
 
   <div class="options">
     <button class="option" onclick="selectOption('A',this)"></button>
@@ -66,48 +91,59 @@
     <button class="option" onclick="selectOption('D',this)"></button>
   </div>
 
+
   <div class="buttonContainer">
     <button id="lockBtn" onclick="lockAnswer()">🔒 Lock Answer</button>
     <button id="nextBtn" onclick="nextQuestion()">Next Question</button>
   </div>
 
+
   <div id="pollChart"></div>
+
   <div id="winningAmount">⭐ Winning Points: 0</div>
 
 </div>
 
+
 <!-- MONEY LADDER -->
 <div class="ladder">
-  <h2>⭐ Points Ladder</h2>
-  <ul id="ladderList">
-    <li>10000000</li>
-    <li>9500000</li>
-    <li>9000000</li>
-    <li>7500000</li>
-    <li>5000000</li>
-    <li>2500000</li>
-    <li>1250000</li>
-    <li>640000</li>
-    <li>320000</li>
-    <li>160000</li>
-    <li>80000</li>
-    <li>40000</li>
-    <li>20000</li>
-    <li>10000</li>
-    <li>5000</li>
-  </ul>
+
+<h2>⭐ Points Ladder</h2>
+
+<ul id="ladderList">
+<li>10000000</li>
+<li>9500000</li>
+<li>9000000</li>
+<li>7500000</li>
+<li>5000000</li>
+<li>2500000</li>
+<li>1250000</li>
+<li>640000</li>
+<li>320000</li>
+<li>160000</li>
+<li>80000</li>
+<li>40000</li>
+<li>20000</li>
+<li>10000</li>
+<li>5000</li>
+</ul>
+
 </div>
+
 
 <div id="confettiContainer"></div>
 
+
 <audio id="correctSound">
-  <source src="correct.mp3" type="audio/mpeg">
+<source src="correct.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="wrongSound">
-  <source src="wrong.mp3" type="audio/mpeg">
+<source src="wrong.mp3" type="audio/mpeg">
 </audio>
 
+
 <script src="script.js"></script>
+
 </body>
 </html>
