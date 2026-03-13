@@ -31,7 +31,7 @@ function checkLogin(){
     document.getElementById("gameScreen").style.display = "block";
     document.getElementById("playerDisplay").innerText = playerName;
 
-    // NEW FEATURE: play login sound once
+    // Play login sound once
     document.getElementById("loginSound").play();
 
     document.getElementById("bgMusic").play();
@@ -247,13 +247,15 @@ function fiftyFifty(){
     let btn = document.querySelectorAll(".option");
     let correct = questions[displayIndex].answer;
     let wrongButtons = Array.from(btn).filter(b => !b.innerText.startsWith(correct));
-    wrongButtons = wrongButtons.sort(()=>0.5-Math.random());
     wrongButtons.slice(0,2).forEach(b => b.style.visibility="hidden");
 
     btnElement.classList.add("used");
     btnElement.disabled = true;
 }
 
+// ------------------------
+// AUDIENCE POLL
+// ------------------------
 function audiencePoll(){
     if(gameOver) return;
     const btnElement = document.querySelector(".lifelines button:nth-child(2)");
@@ -265,44 +267,69 @@ function audiencePoll(){
 
     let options = ["A","B","C","D"];
     let correct = questions[displayIndex].answer;
+    const MIN_PERCENT = 8;
 
-    let correctPercent = Math.floor(Math.random() * 21) + 40;
+    // Correct answer: 50-70%
+    let correctPercent = Math.floor(Math.random() * 21) + 50;
     let remaining = 100 - correctPercent;
-    let wrongPercents = [];
-    for(let i=0;i<3;i++){
-        if(i<2){
-            let p = Math.floor(Math.random()*(remaining+1));
-            wrongPercents.push(p);
-            remaining -= p;
-        } else wrongPercents.push(remaining);
-    }
-    wrongPercents.sort(() => 0.5 - Math.random());
 
+    // Minimum for wrong options
+    let wrongPercents = [MIN_PERCENT, MIN_PERCENT, MIN_PERCENT];
+    remaining -= MIN_PERCENT * 3;
+
+    // Distribute leftover
+    let extra1 = Math.floor(Math.random() * (remaining + 1));
+    let extra2 = Math.floor(Math.random() * (remaining - extra1 + 1));
+    let extra3 = remaining - extra1 - extra2;
+
+    wrongPercents[0] += extra1;
+    wrongPercents[1] += extra2;
+    wrongPercents[2] += extra3;
+
+    // Assign to options
     let percents = [];
+    let wrongIndex = 0;
     for(let i=0;i<4;i++){
-        percents[i] = options[i] === correct ? correctPercent : wrongPercents.pop();
+        percents[i] = options[i] === correct ? correctPercent : wrongPercents[wrongIndex++];
     }
 
+    // Create bars
     for(let i=0; i<4; i++){
         let bar = document.createElement("div");
-        bar.style.width = percents[i] + "%";
+        bar.style.width = "0%";
+        bar.style.height = "30px";
+        bar.style.margin = "5px 0";
+        bar.style.background = "linear-gradient(90deg, #ff9900, #ffcc00)";
+        bar.style.borderRadius = "8px";
         bar.style.position = "relative";
+        bar.style.transition = "width 1s ease-out";
 
         let span = document.createElement("span");
-        span.innerText = options[i];
+        span.innerText = options[i] + " (" + percents[i] + "%)";
         span.style.position = "absolute";
         span.style.left = "50%";
-        span.style.transform = "translateX(-50%)";
+        span.style.top = "50%";
+        span.style.transform = "translate(-50%, -50%)";
         span.style.color = "white";
-        bar.appendChild(span);
+        span.style.fontWeight = "bold";
+        span.style.fontSize = "14px";
+        span.style.pointerEvents = "none";
 
+        bar.appendChild(span);
         chart.appendChild(bar);
+
+        setTimeout(() => {
+            bar.style.width = percents[i] + "%";
+        }, 50);
     }
 
     btnElement.classList.add("used");
     btnElement.disabled = true;
 }
 
+// ------------------------
+// SKIP QUESTION
+// ------------------------
 function skipQuestion(){
     if(gameOver) return;
     const btnElement = document.querySelector(".lifelines button:nth-child(3)");
