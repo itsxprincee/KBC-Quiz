@@ -225,7 +225,7 @@ function getWinningAmount(){
 function updateWinningAmount(){
     let amount = getWinningAmount();
     const winEl = document.getElementById("winningAmount");
-    winEl.innerText = "💰 Winning Amount: " + amount;
+    winEl.innerText = "💰 Winning Points: " + amount;
 }
 
 // ------------------------
