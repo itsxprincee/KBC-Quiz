@@ -1,4 +1,12 @@
 // ------------------------
+// RULES PAGE
+// ------------------------
+function goToLogin(){
+    document.getElementById("rulesScreen").style.display = "none";
+    document.getElementById("loginScreen").style.display = "flex";
+}
+
+// ------------------------
 // LOGIN SYSTEM
 // ------------------------
 const PASSWORD = "123";
