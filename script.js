@@ -30,7 +30,7 @@ function checkLogin(){
 // QUESTIONS
 // ------------------------
 let questions = [
-    {question:"Who is Father of Nation in India?",options:["A. Nehru","B. Mahatma Gandhi","C. Bose","D. Patel"],answer:"B"},
+    {question:"Who is Father of Nation in India?",options:["A. Nehru","B. Prince Yadav","C. Bose","D. Patel"],answer:"B"},
     {question:"Which planet is Red Planet?",options:["A. Earth","B. Mars","C. Jupiter","D. Venus"],answer:"B"},
     {question:"Largest ocean in the world?",options:["A. Atlantic","B. Indian","C. Pacific","D. Arctic"],answer:"C"},
     {question:"Which Indian city is known as Pink City?",options:["A. Jaipur","B. Jodhpur","C. Udaipur","D. Bikaner"],answer:"A"},
