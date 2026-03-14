@@ -11,63 +11,125 @@ function goToLogin(){
 // ------------------------
 const PASSWORD = "123";
 let playerName = "";
+let questions = []; // will hold selected set
 
 function checkLogin(){
     const nameInput = document.getElementById("playerNameInput").value;
     const pass = document.getElementById("password").value;
+    const selectedSet = document.getElementById("questionSet").value;
 
     if(nameInput.trim() === ""){
         document.getElementById("loginError").innerText = "Enter your name!";
         return;
     }
-
     if(pass !== PASSWORD){
         document.getElementById("loginError").innerText = "Incorrect password!";
         return;
     }
 
     playerName = nameInput;
+
+    // Load selected question set
+    if(selectedSet == "1") questions = questionsSet1;
+    if(selectedSet == "2") questions = questionsSet2;
+    if(selectedSet == "3") questions = questionsSet3;
+    if(selectedSet == "4") questions = questionsSet4;
+
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("gameScreen").style.display = "block";
     document.getElementById("playerDisplay").innerText = playerName;
 
-    // Play login sound once
     document.getElementById("loginSound").play();
-
     document.getElementById("bgMusic").play();
+
     loadQuestion();
 }
 
 // ------------------------
-// QUESTIONS
+// QUESTION SETS
 // ------------------------
-let questions = [
-    {question:"Who is Father of Nation in India?",options:["A. Nehru","B. Prince Yadav","C. Bose","D. Patel"],answer:"B"},
-    {question:"Which planet is Red Planet?",options:["A. Earth","B. Mars","C. Jupiter","D. Venus"],answer:"B"},
-    {question:"Largest ocean in the world?",options:["A. Atlantic","B. Indian","C. Pacific","D. Arctic"],answer:"C"},
-    {question:"Which Indian city is known as Pink City?",options:["A. Jaipur","B. Jodhpur","C. Udaipur","D. Bikaner"],answer:"A"},
-    {question:"Who invented the telephone?",options:["A. Edison","B. Graham Bell","C. Tesla","D. Marconi"],answer:"B"},
-    {question:"Which is the smallest continent by area?",options:["A. Africa","B. Europe","C. Australia","D. Antarctica"],answer:"C"},
-    {question:"Who wrote the Indian National Anthem?",options:["A. Tagore","B. Nehru","C. Vivekananda","D. Iqbal"],answer:"A"},
-    {question:"What is the capital of Japan?",options:["A. Seoul","B. Beijing","C. Tokyo","D. Bangkok"],answer:"C"},
-    {question:"Which gas is essential for respiration?",options:["A. Nitrogen","B. Oxygen","C. Carbon Dioxide","D. Hydrogen"],answer:"B"},
-    {question:"Who discovered gravity?",options:["A. Newton","B. Einstein","C. Galileo","D. Kepler"],answer:"A"},
-    {question:"What is the currency of Japan?",options:["A. Yen","B. Dollar","C. Euro","D. Rupee"],answer:"A"},
-    {question:"Who painted the Mona Lisa?",options:["A. Van Gogh","B. Leonardo da Vinci","C. Picasso","D. Michelangelo"],answer:"B"},
-    {question:"Which is the largest planet in our solar system?",options:["A. Earth","B. Jupiter","C. Saturn","D. Neptune"],answer:"B"},
-    {question:"What is the chemical symbol for Gold?",options:["A. Au","B. Ag","C. Go","D. Gd"],answer:"A"},
-    {question:"Which country hosted the 2016 Summer Olympics?",options:["A. China","B. Brazil","C. UK","D. Russia"],answer:"B"},
-    {question:"Which is the fastest land animal?",options:["A. Lion","B. Tiger","C. Cheetah","D. Leopard"],answer:"C"}
+let questionsSet1 = [
+{question:"Capital of India?",options:["A. Mumbai","B. Delhi","C. Kolkata","D. Chennai"],answer:"B"},
+{question:"Red planet?",options:["A. Earth","B. Mars","C. Venus","D. Jupiter"],answer:"B"},
+{question:"Largest ocean?",options:["A. Atlantic","B. Indian","C. Pacific","D. Arctic"],answer:"C"},
+{question:"Pink city of India?",options:["A. Jaipur","B. Delhi","C. Udaipur","D. Jodhpur"],answer:"A"},
+{question:"Fastest land animal?",options:["A. Lion","B. Tiger","C. Cheetah","D. Leopard"],answer:"C"},
+{question:"Gas we breathe?",options:["A. Oxygen","B. Nitrogen","C. Hydrogen","D. CO2"],answer:"A"},
+{question:"Currency of Japan?",options:["A. Yen","B. Dollar","C. Peso","D. Rupee"],answer:"A"},
+{question:"Largest planet?",options:["A. Earth","B. Jupiter","C. Saturn","D. Mars"],answer:"B"},
+{question:"Who discovered gravity?",options:["A. Newton","B. Einstein","C. Galileo","D. Tesla"],answer:"A"},
+{question:"Symbol of Gold?",options:["A. Go","B. Gd","C. Au","D. Ag"],answer:"C"},
+{question:"Painter of Mona Lisa?",options:["A. Picasso","B. Leonardo da Vinci","C. Van Gogh","D. Michelangelo"],answer:"B"},
+{question:"Smallest continent?",options:["A. Europe","B. Australia","C. Africa","D. Antarctica"],answer:"B"},
+{question:"National bird of India?",options:["A. Peacock","B. Eagle","C. Sparrow","D. Parrot"],answer:"A"},
+{question:"Largest desert?",options:["A. Sahara","B. Gobi","C. Thar","D. Arctic"],answer:"A"},
+{question:"Number of continents?",options:["A. 5","B. 6","C. 7","D. 8"],answer:"C"},
+{question:"Liquid metal?",options:["A. Iron","B. Mercury","C. Copper","D. Zinc"],answer:"B"}
+];
+
+let questionsSet2 = [
+{question:"Inventor of telephone?",options:["A. Edison","B. Graham Bell","C. Tesla","D. Newton"],answer:"B"},
+{question:"Capital of France?",options:["A. Berlin","B. Madrid","C. Paris","D. Rome"],answer:"C"},
+{question:"Largest mammal?",options:["A. Elephant","B. Blue Whale","C. Shark","D. Rhino"],answer:"B"},
+{question:"Currency of USA?",options:["A. Dollar","B. Euro","C. Pound","D. Peso"],answer:"A"},
+{question:"National animal of India?",options:["A. Lion","B. Tiger","C. Leopard","D. Bear"],answer:"B"},
+{question:"Hottest planet?",options:["A. Mercury","B. Venus","C. Mars","D. Jupiter"],answer:"B"},
+{question:"Longest river?",options:["A. Nile","B. Amazon","C. Ganga","D. Yangtze"],answer:"A"},
+{question:"Gas used by plants?",options:["A. Oxygen","B. Carbon Dioxide","C. Hydrogen","D. Nitrogen"],answer:"B"},
+{question:"Largest country?",options:["A. USA","B. Russia","C. China","D. Canada"],answer:"B"},
+{question:"Players in football team?",options:["A. 9","B. 10","C. 11","D. 12"],answer:"C"},
+{question:"Capital of Germany?",options:["A. Berlin","B. Munich","C. Bonn","D. Hamburg"],answer:"A"},
+{question:"Writer of Hamlet?",options:["A. Dickens","B. Shakespeare","C. Tolkien","D. Austen"],answer:"B"},
+{question:"Speed of light?",options:["A. 300k km/s","B. 100k km/s","C. 500k km/s","D. 1M km/s"],answer:"A"},
+{question:"Earth satellite?",options:["A. Moon","B. Mars","C. Venus","D. Sun"],answer:"A"},
+{question:"Largest bone?",options:["A. Femur","B. Skull","C. Rib","D. Spine"],answer:"A"},
+{question:"Sun vitamin?",options:["A. A","B. B","C. C","D. D"],answer:"D"}
+];
+
+let questionsSet3 = [
+{question:"Capital of Italy?",options:["A. Milan","B. Venice","C. Rome","D. Naples"],answer:"C"},
+{question:"Largest island?",options:["A. Greenland","B. Australia","C. Madagascar","D. Iceland"],answer:"A"},
+{question:"Organ pumping blood?",options:["A. Brain","B. Heart","C. Lung","D. Liver"],answer:"B"},
+{question:"Water formula?",options:["A. CO2","B. H2O","C. O2","D. NaCl"],answer:"B"},
+{question:"Sun is?",options:["A. Planet","B. Star","C. Asteroid","D. Comet"],answer:"B"},
+{question:"Greenhouse gas?",options:["A. Oxygen","B. Nitrogen","C. CO2","D. Helium"],answer:"C"},
+{question:"Tallest mountain?",options:["A. K2","B. Everest","C. Makalu","D. Kanchenjunga"],answer:"B"},
+{question:"Largest organ?",options:["A. Skin","B. Heart","C. Brain","D. Liver"],answer:"A"},
+{question:"Capital of Canada?",options:["A. Toronto","B. Ottawa","C. Montreal","D. Vancouver"],answer:"B"},
+{question:"First man on moon?",options:["A. Armstrong","B. Aldrin","C. Collins","D. Gagarin"],answer:"A"},
+{question:"Disease fighting cells?",options:["A. RBC","B. WBC","C. Platelets","D. Plasma"],answer:"B"},
+{question:"Fastest bird?",options:["A. Falcon","B. Eagle","C. Hawk","D. Sparrow"],answer:"A"},
+{question:"Asian desert?",options:["A. Gobi","B. Thar","C. Arabian","D. Taklamakan"],answer:"A"},
+{question:"Planet with rings?",options:["A. Mars","B. Saturn","C. Mercury","D. Earth"],answer:"B"},
+{question:"Discovered America?",options:["A. Columbus","B. Cook","C. Magellan","D. Vespucci"],answer:"A"},
+{question:"Metal that rusts?",options:["A. Iron","B. Gold","C. Silver","D. Copper"],answer:"A"}
+];
+
+let questionsSet4 = [
+{question:"Largest lake?",options:["A. Victoria","B. Superior","C. Baikal","D. Michigan"],answer:"B"},
+{question:"King of jungle?",options:["A. Tiger","B. Lion","C. Bear","D. Leopard"],answer:"B"},
+{question:"Human bones?",options:["A. 206","B. 210","C. 180","D. 150"],answer:"A"},
+{question:"Country with pyramids?",options:["A. Egypt","B. Mexico","C. Peru","D. India"],answer:"A"},
+{question:"Largest continent?",options:["A. Asia","B. Africa","C. Europe","D. America"],answer:"A"},
+{question:"Hours in a day?",options:["A. 12","B. 24","C. 36","D. 48"],answer:"B"},
+{question:"Planet closest to sun?",options:["A. Venus","B. Earth","C. Mercury","D. Mars"],answer:"C"},
+{question:"Capital of Australia?",options:["A. Sydney","B. Canberra","C. Melbourne","D. Perth"],answer:"B"},
+{question:"Most abundant gas?",options:["A. Oxygen","B. Nitrogen","C. CO2","D. Hydrogen"],answer:"B"},
+{question:"Flightless bird?",options:["A. Eagle","B. Penguin","C. Hawk","D. Crow"],answer:"B"},
+{question:"Largest rainforest?",options:["A. Amazon","B. Congo","C. Taiga","D. Sundarbans"],answer:"A"},
+{question:"Temperature instrument?",options:["A. Barometer","B. Thermometer","C. Hygrometer","D. Altimeter"],answer:"B"},
+{question:"Largest volcano?",options:["A. Mauna Loa","B. Fuji","C. Etna","D. Vesuvius"],answer:"A"},
+{question:"Penicillin discoverer?",options:["A. Fleming","B. Darwin","C. Jenner","D. Pasteur"],answer:"A"},
+{question:"Largest ocean animal?",options:["A. Whale","B. Shark","C. Octopus","D. Dolphin"],answer:"A"},
+{question:"Gas in balloons?",options:["A. Helium","B. Oxygen","C. Nitrogen","D. Hydrogen"],answer:"A"}
 ];
 
 // ------------------------
 // VARIABLES
 // ------------------------
-let money = [
-"₹1,000","₹2,000","₹5,000","₹10,000","₹20,000","₹40,000","₹80,000",
+let money = ["₹1,000","₹2,000","₹5,000","₹10,000","₹20,000","₹40,000","₹80,000",
 "₹1,60,000","₹3,20,000","₹6,40,000","₹12,50,000","₹25,00,000",
-"₹50,00,000","₹1 Crore","₹7 Crore"
-];
+"₹50,00,000","₹1 Crore","₹7 Crore"];
 
 let current = 0;
 let displayIndex = 0;
@@ -142,7 +204,7 @@ function lockAnswer(){
     if(selected === correct){
         document.getElementById("correctSound").play();
         btn[["A","B","C","D"].indexOf(selected)].classList.add("correct");
-        current++;       
+        current++;
         displayIndex++;
         updateWinningAmount();
         highlight();
@@ -224,7 +286,6 @@ function highlight(){
 function getWinningAmount(){
     let items = document.querySelectorAll("#ladderList li");
     let index = items.length - current;
-
     if(current == 0) return "0";
     if(items[index]) return items[index].innerText;
     return "0";
@@ -245,17 +306,14 @@ function fiftyFifty(){
     if(btnElement.classList.contains("used")) return;
 
     let btn = document.querySelectorAll(".option");
-    let correct = questions[displayIndex].answer;
-    let wrongButtons = Array.from(btn).filter(b => !b.innerText.startsWith(correct));
-    wrongButtons.slice(0,2).forEach(b => b.style.visibility="hidden");
+    let correctIndex = ["A","B","C","D"].indexOf(questions[displayIndex].answer);
+    let wrongButtons = Array.from(btn).filter((b,i) => i !== correctIndex);
+    wrongButtons.slice(0,2).forEach(b => b.style.visibility = "hidden");
 
     btnElement.classList.add("used");
     btnElement.disabled = true;
 }
 
-// ------------------------
-// AUDIENCE POLL
-// ------------------------
 function audiencePoll(){
     if(gameOver) return;
     const btnElement = document.querySelector(".lifelines button:nth-child(2)");
@@ -269,32 +327,25 @@ function audiencePoll(){
     let correct = questions[displayIndex].answer;
     const MIN_PERCENT = 8;
 
-    // Correct answer: 50-70%
     let correctPercent = Math.floor(Math.random() * 21) + 50;
     let remaining = 100 - correctPercent;
-
-    // Minimum for wrong options
     let wrongPercents = [MIN_PERCENT, MIN_PERCENT, MIN_PERCENT];
     remaining -= MIN_PERCENT * 3;
 
-    // Distribute leftover
     let extra1 = Math.floor(Math.random() * (remaining + 1));
     let extra2 = Math.floor(Math.random() * (remaining - extra1 + 1));
     let extra3 = remaining - extra1 - extra2;
-
     wrongPercents[0] += extra1;
     wrongPercents[1] += extra2;
     wrongPercents[2] += extra3;
 
-    // Assign to options
     let percents = [];
     let wrongIndex = 0;
     for(let i=0;i<4;i++){
         percents[i] = options[i] === correct ? correctPercent : wrongPercents[wrongIndex++];
     }
 
-    // Create bars
-    for(let i=0; i<4; i++){
+    for(let i=0;i<4;i++){
         let bar = document.createElement("div");
         bar.style.width = "0%";
         bar.style.height = "30px";
@@ -305,7 +356,7 @@ function audiencePoll(){
         bar.style.transition = "width 1s ease-out";
 
         let span = document.createElement("span");
-        span.innerText = options[i] + " (" + percents[i] + "%)";
+        span.innerText = options[i]+" ("+percents[i]+"%)";
         span.style.position = "absolute";
         span.style.left = "50%";
         span.style.top = "50%";
@@ -318,18 +369,13 @@ function audiencePoll(){
         bar.appendChild(span);
         chart.appendChild(bar);
 
-        setTimeout(() => {
-            bar.style.width = percents[i] + "%";
-        }, 50);
+        setTimeout(()=>{ bar.style.width = percents[i]+"%"; },50);
     }
 
     btnElement.classList.add("used");
     btnElement.disabled = true;
 }
 
-// ------------------------
-// SKIP QUESTION
-// ------------------------
 function skipQuestion(){
     if(gameOver) return;
     const btnElement = document.querySelector(".lifelines button:nth-child(3)");
