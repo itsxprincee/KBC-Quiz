@@ -7,23 +7,72 @@ body{
 }
 
 /* RULES SCREEN */
+
 #rulesScreen{
     position:absolute;
     width:100%;
     height:100%;
     display:flex;
     flex-direction:column;
-    justify-content:center;
     align-items:center;
     background:black;
-    text-align:center;
-    z-index:10;
+    padding:40px 20px;
+    overflow-y:auto;
 }
-#rulesScreen ul{list-style:none; padding:0; margin:20px;}
-#rulesScreen li{margin:10px; font-size:18px;}
-#rulesScreen button{padding:12px 30px; font-size:18px; cursor:pointer;}
+
+#rulesScreen h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+/* KBC STYLE RULES PANEL */
+
+#rulesScreen ul{
+    max-width:900px;
+    width:100%;
+    text-align:left;
+    padding:30px 40px;
+
+    background:#001f4d;
+    border:3px solid gold;
+    border-radius:15px;
+
+    box-shadow:0 0 20px gold;
+
+    line-height:1.7;
+
+    animation:ruleGlow 3s infinite;
+}
+
+#rulesScreen > ul > li{
+    margin-bottom:22px;
+    font-size:18px;
+}
+
+#rulesScreen ul ul{
+    margin-top:8px;
+}
+
+#rulesScreen ul ul li{
+    font-size:16px;
+    margin:6px 0;
+    line-height:1.6;
+}
+
+#rulesScreen b{
+    color:gold;
+    font-size:19px;
+}
+
+#rulesScreen button{
+    margin-top:30px;
+    padding:12px 35px;
+    font-size:18px;
+    cursor:pointer;
+}
 
 /* LOGIN SCREEN */
+
 #loginScreen{
     position:absolute;
     width:100%;
@@ -34,6 +83,7 @@ body{
     align-items:center;
     background:black;
 }
+
 #loginScreen input{
     padding:10px;
     margin:5px;
@@ -41,6 +91,7 @@ body{
     border-radius:5px;
     border:none;
 }
+
 #loginScreen button{
     padding:10px 20px;
     margin-top:10px;
@@ -48,7 +99,8 @@ body{
     cursor:pointer;
 }
 
-/* NEW: SET SELECTION DROPDOWN */
+/* SET DROPDOWN */
+
 #loginScreen select{
     padding:10px;
     margin:5px;
@@ -58,6 +110,7 @@ body{
 }
 
 /* GAME SCREEN */
+
 #gameScreen{
     width:65%;
     padding:40px;
@@ -157,6 +210,8 @@ body{
     background:linear-gradient(135deg,#ff9900,#ffcc00);
 }
 
+/* LADDER */
+
 .ladder{
     width:25%;
     background:#111;
@@ -172,6 +227,8 @@ body{
     background:gold;
     color:black;
 }
+
+/* LIFELINES */
 
 .lifelines button{
     background:none;
@@ -192,6 +249,8 @@ body{
     transition: opacity 0.5s, transform 0.5s;
 }
 
+/* CONFETTI */
+
 #confettiContainer{
     position:fixed;
     top:0;
@@ -201,6 +260,8 @@ body{
     pointer-events:none;
 }
 
+/* WINNING AMOUNT */
+
 #winningAmount{
     margin-top:20px;
     font-size:20px;
@@ -208,8 +269,9 @@ body{
 }
 
 /* POLL */
+
 #pollChart div{
-    height: 30px;
+    height:30px;
     background: linear-gradient(90deg, #ff9900, #ffcc00);
     margin: 5px 0;
     border-radius: 8px;
@@ -229,8 +291,18 @@ body{
     pointer-events: none;
 }
 
+/* GLOW ANIMATION */
+
 @keyframes glow{
 0%{box-shadow:0 0 5px gold;}
 50%{box-shadow:0 0 20px gold;}
 100%{box-shadow:0 0 5px gold;}
+}
+
+/* RULES PANEL GLOW */
+
+@keyframes ruleGlow{
+0%{box-shadow:0 0 10px gold;}
+50%{box-shadow:0 0 25px gold;}
+100%{box-shadow:0 0 10px gold;}
 }
