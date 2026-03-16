@@ -306,3 +306,25 @@ body{
 50%{box-shadow:0 0 25px gold;}
 100%{box-shadow:0 0 10px gold;}
 }
+#endScreen{
+position:absolute;
+width:100%;
+height:100%;
+background:black;
+color:white;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-size:30px;
+}
+
+#endScreen button{
+margin-top:30px;
+padding:15px 40px;
+font-size:20px;
+cursor:pointer;
+border:none;
+border-radius:10px;
+background:gold;
+}
