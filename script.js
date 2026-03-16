@@ -227,6 +227,9 @@ function lockAnswer(){
 function nextQuestion(){
     if(gameOver) return;
     if(document.getElementById("nextBtn").disabled) return;
+
+    new Audio("login.mp3").play(); // play sound when next question is clicked
+
     loadQuestion();
 }
 
