@@ -1,3 +1,4 @@
+
 // ------------------------
 // RULES PAGE
 // ------------------------
@@ -235,7 +236,18 @@ function nextQuestion(){
 function startTimer(){
     if(gameOver) return;
 
-    let totalTime = current < 6 ? 30 : 60;
+    let totalTime;
+
+    if(current < 5){
+        totalTime = 30;   // Question 1–5
+    }
+    else if(current < 10){
+        totalTime = 60;   // Question 6–10
+    }
+    else{
+        totalTime = 120;  // Question 11–15
+    }
+
     timeLeft = totalTime;
 
     document.getElementById("time").innerText = timeLeft;
@@ -262,7 +274,6 @@ function startTimer(){
         }
     },1000);
 }
-
 // ------------------------
 // HIGHLIGHT LADDER
 // ------------------------
@@ -388,4 +399,13 @@ function skipQuestion(){
     btnElement.classList.add("used");
     btnElement.disabled = true;
     document.getElementById("nextBtn").disabled = false;
+}
+function endGame(win){
+document.getElementById("game").style.display="none";
+document.getElementById("endScreen").style.display="flex";
+if(win){
+document.getElementById("finalMessage").innerText="🎉 GRAND WINNER! ₹"+score;
+}else{
+document.getElementById("finalMessage").innerText="❌ Game Over! ₹"+score;
+}
 }
