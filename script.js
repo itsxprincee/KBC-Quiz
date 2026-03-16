@@ -260,9 +260,27 @@ function startTimer(){
     countdownPlayed = false;
 
     timer = setInterval(()=>{
-        timeLeft--;
-        document.getElementById("time").innerText = timeLeft;
-        document.getElementById("timeBar").style.width = (timeLeft/totalTime*100) + "%";
+    timeLeft--;
+    document.getElementById("time").innerText = timeLeft;
+
+    let bar = document.getElementById("timeBar");
+    let timerBox = document.querySelector(".timer");
+
+    bar.style.width = (timeLeft/totalTime*100) + "%";
+
+    // Timer Color Logic
+    if(timeLeft > 20){
+        bar.style.background = "lime";
+        timerBox.style.borderColor = "lime";
+    }
+    else if(timeLeft > 10){
+        bar.style.background = "yellow";
+        timerBox.style.borderColor = "yellow";
+    }
+    else{
+        bar.style.background = "red";
+        timerBox.style.borderColor = "red";
+    }
 
         if(timeLeft === 10 && !countdownPlayed){
             countdownPlayed = true;
