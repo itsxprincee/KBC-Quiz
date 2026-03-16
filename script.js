@@ -203,6 +203,11 @@ function lockAnswer(){
     let btn = document.querySelectorAll(".option");
 
     if(selected === correct){
+
+if(displayIndex === questions.length-1){
+endGame(true);
+return;
+}
         document.getElementById("correctSound").play();
         btn[["A","B","C","D"].indexOf(selected)].classList.add("correct");
         current++;
@@ -214,7 +219,7 @@ function lockAnswer(){
         btn[["A","B","C","D"].indexOf(selected)].classList.add("wrong");
         btn[["A","B","C","D"].indexOf(correct)].classList.add("correct");
         gameOver = true;
-        updateWinningAmount();
+endGame(false);
     }
 
     btn.forEach(b => b.disabled = true);
@@ -429,4 +434,29 @@ document.getElementById("finalMessage").innerText="🎉 GRAND WINNER! ₹"+score
 }else{
 document.getElementById("finalMessage").innerText="❌ Game Over! ₹"+score;
 }
+}
+function endGame(win){
+
+clearInterval(timer);
+
+document.getElementById("gameScreen").style.display="none";
+document.getElementById("endScreen").style.display="flex";
+
+let amount=getWinningAmount();
+
+if(win){
+document.getElementById("finalMessage").innerText=
+"🎉 GRAND WINNER!\nYou won "+amount;
+}else{
+document.getElementById("finalMessage").innerText=
+"❌ Game Over!\nYou won "+amount;
+}
+
+}
+
+
+function restartGame(){
+
+location.reload();
+
 }
