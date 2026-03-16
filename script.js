@@ -246,11 +246,11 @@ function startTimer(){
 
     let totalTime;
 
-    if(current < 5){
-        totalTime = 30;   // Question 1–5
+    if(current < 6){
+        totalTime = 30;   // Question 1–6 😘😘😘😘😘
     }
-    else if(current < 10){
-        totalTime = 60;   // Question 6–10
+    else if(current < 11){
+        totalTime = 60;   // Question 6–10😘😘😘😘😘😘
     }
     else{
         totalTime = 120;  // Question 11–15
