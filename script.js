@@ -449,7 +449,7 @@ document.getElementById("finalMessage").innerText=
 "🎉 GRAND WINNER!\nYou won "+amount;
 }else{
 document.getElementById("finalMessage").innerText=
-"❌ Game Over!\nYou won "+amount;
+"❌ Game Over!!!\nYour Points= "+amount;
 }
 
 }
