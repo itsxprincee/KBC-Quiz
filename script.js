@@ -202,6 +202,9 @@ function selectOption(letter,button){
 // ------------------------
 // LOCK ANSWER
 // ------------------------
+// ------------------------
+// LOCK ANSWER
+// ------------------------
 function lockAnswer(){
     if(selected == null || gameOver) return;
 
@@ -225,13 +228,47 @@ function lockAnswer(){
         btn[["A","B","C","D"].indexOf(selected)].classList.add("wrong");
         btn[["A","B","C","D"].indexOf(correct)].classList.add("correct");
         gameOver = true;
-        endGame(false);
+        // DELAY END SCREEN BY 6 SECONDS
+        setTimeout(()=>{ endGame(false); }, 6000);
     }
 
     btn.forEach(b => b.disabled = true);
     document.getElementById("nextBtn").disabled = false;
 }
 
+// ------------------------
+// PREPARE QUESTION (SHOW OPTIONS FEATURE)
+// ------------------------
+function prepareQuestion(){
+    if(displayIndex >= questions.length){
+        // DELAY END SCREEN BY 8 SECONDS
+        setTimeout(()=>{ endGame(true); }, 7000);
+        return;
+    }
+    let q = questions[displayIndex];
+    document.getElementById("question").innerText = q.question;
+
+    let btn = document.querySelectorAll(".option");
+    btn.forEach((b,i)=>{
+        b.innerText = q.options[i];
+        b.classList.remove("selected","correct","wrong");
+        b.disabled = false;
+        b.style.visibility = "hidden"; // hidden until show options
+    });
+
+    selected = null;
+    pollUsedForCurrentQuestion = false;
+    countdownPlayed = false;
+    document.getElementById("pollChart").innerHTML = "";
+
+    // Reset buttons
+    document.getElementById("lockBtn").style.display = "none";
+    document.getElementById("lockBtn").disabled = false;
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("nextBtn").disabled = true;
+
+    document.getElementById("showOptionsBtn").style.display = "inline-block";
+}
 // ------------------------
 // NEXT QUESTION
 // ------------------------
