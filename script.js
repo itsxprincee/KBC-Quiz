@@ -1,4 +1,3 @@
-
 // ------------------------
 // RULES PAGE
 // ------------------------
@@ -41,9 +40,8 @@ function checkLogin(){
     document.getElementById("playerDisplay").innerText = playerName;
 
     document.getElementById("loginSound").play();
-    document.getElementById("bgMusic").play();
 
-    loadQuestion();
+    prepareQuestion();
 }
 
 // ------------------------
@@ -128,9 +126,7 @@ let questionsSet4 = [
 // ------------------------
 // VARIABLES
 // ------------------------
-let money = ["₹1,000","₹2,000","₹5,000","₹10,000","₹20,000","₹40,000","₹80,000",
-"₹1,60,000","₹3,20,000","₹6,40,000","₹12,50,000","₹25,00,000",
-"₹50,00,000","₹1 Crore","₹7 Crore"];
+
 
 let current = 0;
 let displayIndex = 0;
@@ -139,21 +135,16 @@ let timer;
 let timeLeft = 30;
 let gameOver = false;
 let pollUsedForCurrentQuestion = false;
-let countdownAudio = new Audio("countdown.mp3");
 let countdownPlayed = false;
 
 // ------------------------
-// LOAD QUESTION
+// PREPARE QUESTION (SHOW OPTIONS FEATURE)
 // ------------------------
-function loadQuestion(){
-    if(gameOver) return;
+function prepareQuestion(){
     if(displayIndex >= questions.length){
-        alert("🎉 Congratulations! You completed all questions.");
-        gameOver = true;
-        updateWinningAmount();
+        endGame(true);
         return;
     }
-
     let q = questions[displayIndex];
     document.getElementById("question").innerText = q.question;
 
@@ -162,7 +153,7 @@ function loadQuestion(){
         b.innerText = q.options[i];
         b.classList.remove("selected","correct","wrong");
         b.disabled = false;
-        b.style.visibility = "visible";
+        b.style.visibility = "hidden"; // hidden until show options
     });
 
     selected = null;
@@ -170,11 +161,31 @@ function loadQuestion(){
     countdownPlayed = false;
     document.getElementById("pollChart").innerHTML = "";
 
-    document.getElementById("nextBtn").disabled = true;
+    // Reset buttons
+    document.getElementById("lockBtn").style.display = "none";
     document.getElementById("lockBtn").disabled = false;
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("nextBtn").disabled = true;
 
-    highlight();
+    document.getElementById("showOptionsBtn").style.display = "inline-block";
+}
+
+// ------------------------
+// SHOW OPTIONS
+// ------------------------
+function showOptions(){
+    let btn = document.querySelectorAll(".option");
+    btn.forEach(b => b.style.visibility = "visible");
+
+    document.getElementById("lockBtn").style.display = "inline-block";
+    document.getElementById("lockBtn").disabled = false;
+    document.getElementById("nextBtn").style.display = "inline-block";
+    document.getElementById("nextBtn").disabled = true;
+
+    document.getElementById("showOptionsBtn").style.display = "none";
+
     startTimer();
+    document.getElementById("bgMusic").play();
 }
 
 // ------------------------
@@ -196,18 +207,13 @@ function lockAnswer(){
 
     document.getElementById("lockBtn").disabled = true;
     clearInterval(timer);
-    countdownAudio.pause();
-    countdownAudio.currentTime = 0;
+    document.getElementById("countdownAudio").pause();
+    document.getElementById("countdownAudio").currentTime = 0;
 
     let correct = questions[displayIndex].answer;
     let btn = document.querySelectorAll(".option");
 
     if(selected === correct){
-
-if(displayIndex === questions.length-1){
-endGame(true);
-return;
-}
         document.getElementById("correctSound").play();
         btn[["A","B","C","D"].indexOf(selected)].classList.add("correct");
         current++;
@@ -219,7 +225,7 @@ return;
         btn[["A","B","C","D"].indexOf(selected)].classList.add("wrong");
         btn[["A","B","C","D"].indexOf(correct)].classList.add("correct");
         gameOver = true;
-endGame(false);
+        endGame(false);
     }
 
     btn.forEach(b => b.disabled = true);
@@ -232,10 +238,7 @@ endGame(false);
 function nextQuestion(){
     if(gameOver) return;
     if(document.getElementById("nextBtn").disabled) return;
-
-    new Audio("login.mp3").play(); // play sound when next question is clicked
-
-    loadQuestion();
+    prepareQuestion();
 }
 
 // ------------------------
@@ -245,19 +248,11 @@ function startTimer(){
     if(gameOver) return;
 
     let totalTime;
-
-    if(current < 6){
-        totalTime = 30;   // Question 1–6 😘😘😘😘😘
-    }
-    else if(current < 11){
-        totalTime = 60;   // Question 6–10😘😘😘😘😘😘
-    }
-    else{
-        totalTime = 120;  // Question 11–15
-    }
+    if(current < 6){ totalTime = 30; }
+    else if(current < 11){ totalTime = 60; }
+    else{ totalTime = 120; }
 
     timeLeft = totalTime;
-
     document.getElementById("time").innerText = timeLeft;
     document.getElementById("timeBar").style.width = "100%";
 
@@ -265,56 +260,39 @@ function startTimer(){
     countdownPlayed = false;
 
     timer = setInterval(()=>{
-    timeLeft--;
-    document.getElementById("time").innerText = timeLeft;
+        timeLeft--;
+        document.getElementById("time").innerText = timeLeft;
+        let bar = document.getElementById("timeBar");
+        let timerBox = document.querySelector(".timer");
+        bar.style.width = (timeLeft/totalTime*100) + "%";
 
-    let bar = document.getElementById("timeBar");
-    let timerBox = document.querySelector(".timer");
+        if(timeLeft > 20){ bar.style.background = "lime"; timerBox.style.borderColor="lime"; }
+        else if(timeLeft>10){ bar.style.background="yellow"; timerBox.style.borderColor="yellow"; }
+        else{ bar.style.background="red"; timerBox.style.borderColor="red"; }
 
-    bar.style.width = (timeLeft/totalTime*100) + "%";
-
-    // Timer Color Logic
-    if(timeLeft > 20){
-        bar.style.background = "lime";
-        timerBox.style.borderColor = "lime";
-    }
-    else if(timeLeft > 10){
-        bar.style.background = "yellow";
-        timerBox.style.borderColor = "yellow";
-    }
-    else{
-        bar.style.background = "red";
-        timerBox.style.borderColor = "red";
-    }
-
-        if(timeLeft === 10 && !countdownPlayed){
-            countdownPlayed = true;
-            countdownAudio.currentTime = 0;
-            countdownAudio.play();
+        if(timeLeft===10 && !countdownPlayed){
+            countdownPlayed=true;
+            document.getElementById("countdownAudio").currentTime=0;
+            document.getElementById("countdownAudio").play();
         }
 
-        if(timeLeft <= 0){
+        if(timeLeft<=0){
             clearInterval(timer);
-            gameOver = true;
+            gameOver=true;
             updateWinningAmount();
+            endGame(false);
         }
     },1000);
 }
+
 // ------------------------
 // HIGHLIGHT LADDER
 // ------------------------
 function highlight(){
     let items = document.querySelectorAll("#ladderList li");
-    items.forEach(i=>{
-        i.classList.remove("active");
-        i.style.animation = "";
-    });
-
+    items.forEach(i=>{ i.classList.remove("active"); i.style.animation=""; });
     let index = items.length-1-current;
-    if(items[index]){
-        items[index].classList.add("active");
-        items[index].style.animation = "glow 1s infinite";
-    }
+    if(items[index]){ items[index].classList.add("active"); items[index].style.animation="glow 1s infinite"; }
 }
 
 // ------------------------
@@ -344,119 +322,91 @@ function fiftyFifty(){
 
     let btn = document.querySelectorAll(".option");
     let correctIndex = ["A","B","C","D"].indexOf(questions[displayIndex].answer);
-    let wrongButtons = Array.from(btn).filter((b,i) => i !== correctIndex);
-    wrongButtons.slice(0,2).forEach(b => b.style.visibility = "hidden");
+    let wrongButtons = Array.from(btn).filter((b,i)=> i!==correctIndex);
+    wrongButtons.slice(0,2).forEach(b=>b.style.visibility="hidden");
 
     btnElement.classList.add("used");
-    btnElement.disabled = true;
+    btnElement.disabled=true;
 }
 
 function audiencePoll(){
     if(gameOver) return;
-    const btnElement = document.querySelector(".lifelines button:nth-child(2)");
+    const btnElement=document.querySelector(".lifelines button:nth-child(2)");
     if(btnElement.classList.contains("used")) return;
 
-    pollUsedForCurrentQuestion = true;
-    let chart = document.getElementById("pollChart");
-    chart.innerHTML = "";
+    pollUsedForCurrentQuestion=true;
+    let chart=document.getElementById("pollChart");
+    chart.innerHTML="";
+    let options=["A","B","C","D"];
+    let correct=questions[displayIndex].answer;
+    const MIN_PERCENT=8;
+    let correctPercent=Math.floor(Math.random()*21)+50;
+    let remaining=100-correctPercent;
+    let wrongPercents=[MIN_PERCENT,MIN_PERCENT,MIN_PERCENT];
+    remaining-=MIN_PERCENT*3;
+    let extra1=Math.floor(Math.random()*(remaining+1));
+    let extra2=Math.floor(Math.random()*(remaining-extra1+1));
+    let extra3=remaining-extra1-extra2;
+    wrongPercents[0]+=extra1; wrongPercents[1]+=extra2; wrongPercents[2]+=extra3;
 
-    let options = ["A","B","C","D"];
-    let correct = questions[displayIndex].answer;
-    const MIN_PERCENT = 8;
-
-    let correctPercent = Math.floor(Math.random() * 21) + 50;
-    let remaining = 100 - correctPercent;
-    let wrongPercents = [MIN_PERCENT, MIN_PERCENT, MIN_PERCENT];
-    remaining -= MIN_PERCENT * 3;
-
-    let extra1 = Math.floor(Math.random() * (remaining + 1));
-    let extra2 = Math.floor(Math.random() * (remaining - extra1 + 1));
-    let extra3 = remaining - extra1 - extra2;
-    wrongPercents[0] += extra1;
-    wrongPercents[1] += extra2;
-    wrongPercents[2] += extra3;
-
-    let percents = [];
-    let wrongIndex = 0;
+    let percents=[];
+    let wrongIndex=0;
     for(let i=0;i<4;i++){
-        percents[i] = options[i] === correct ? correctPercent : wrongPercents[wrongIndex++];
+        percents[i]=options[i]===correct? correctPercent:wrongPercents[wrongIndex++];
     }
 
     for(let i=0;i<4;i++){
-        let bar = document.createElement("div");
-        bar.style.width = "0%";
-        bar.style.height = "30px";
-        bar.style.margin = "5px 0";
-        bar.style.background = "linear-gradient(90deg, #ff9900, #ffcc00)";
-        bar.style.borderRadius = "8px";
-        bar.style.position = "relative";
-        bar.style.transition = "width 1s ease-out";
-
-        let span = document.createElement("span");
-        span.innerText = options[i]+" ("+percents[i]+"%)";
-        span.style.position = "absolute";
-        span.style.left = "50%";
-        span.style.top = "50%";
-        span.style.transform = "translate(-50%, -50%)";
-        span.style.color = "white";
-        span.style.fontWeight = "bold";
-        span.style.fontSize = "14px";
-        span.style.pointerEvents = "none";
-
-        bar.appendChild(span);
-        chart.appendChild(bar);
-
-        setTimeout(()=>{ bar.style.width = percents[i]+"%"; },50);
+        let bar=document.createElement("div");
+        bar.style.width="0%"; bar.style.height="30px"; bar.style.margin="5px 0";
+        bar.style.background="linear-gradient(90deg, #ff9900, #ffcc00)";
+        bar.style.borderRadius="8px"; bar.style.position="relative"; bar.style.transition="width 1s ease-out";
+        let span=document.createElement("span");
+        span.innerText=options[i]+" ("+percents[i]+"%)";
+        span.style.position="absolute"; span.style.left="50%"; span.style.top="50%";
+        span.style.transform="translate(-50%, -50%)"; span.style.color="white"; span.style.fontWeight="bold";
+        span.style.fontSize="14px"; span.style.pointerEvents="none";
+        bar.appendChild(span); chart.appendChild(bar);
+        setTimeout(()=>{bar.style.width=percents[i]+"%";},50);
     }
 
     btnElement.classList.add("used");
-    btnElement.disabled = true;
+    btnElement.disabled=true;
 }
 
 function skipQuestion(){
     if(gameOver) return;
-    const btnElement = document.querySelector(".lifelines button:nth-child(3)");
+    const btnElement=document.querySelector(".lifelines button:nth-child(3)");
     if(btnElement.classList.contains("used")) return;
 
     clearInterval(timer);
     displayIndex++;
-    loadQuestion();
+    prepareQuestion();
 
     btnElement.classList.add("used");
-    btnElement.disabled = true;
-    document.getElementById("nextBtn").disabled = false;
+    btnElement.disabled=true;
+    document.getElementById("nextBtn").disabled=false;
 }
+
+// ------------------------
+// END GAME
+// ------------------------
 function endGame(win){
-document.getElementById("game").style.display="none";
-document.getElementById("endScreen").style.display="flex";
-if(win){
-document.getElementById("finalMessage").innerText="🎉 GRAND WINNER! ₹"+score;
-}else{
-document.getElementById("finalMessage").innerText="❌ Game Over! ₹"+score;
-}
-}
-function endGame(win){
+    clearInterval(timer);
+    document.getElementById("gameScreen").style.display="none";
+    document.getElementById("endScreen").style.display="flex";
 
-clearInterval(timer);
+    let amount=getWinningAmount();
 
-document.getElementById("gameScreen").style.display="none";
-document.getElementById("endScreen").style.display="flex";
-
-let amount=getWinningAmount();
-
-if(win){
-document.getElementById("finalMessage").innerText=
-"🎉 GRAND WINNER!\nYou won "+amount;
-}else{
-document.getElementById("finalMessage").innerText=
-"❌ Game Over!!!\nYour Points= "+amount;
+    if(win){
+        document.getElementById("finalMessage").innerText="🎉 GRAND WINNER!\nYou won "+amount;
+    } else {
+        document.getElementById("finalMessage").innerText="❌ Game Over!!!\nYour Points= "+amount;
+    }
 }
 
-}
-
-
+// ------------------------
+// RESTART GAME
+// ------------------------
 function restartGame(){
-
-location.reload();
-
+    location.reload();
 }
