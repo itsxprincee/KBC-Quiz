@@ -241,8 +241,8 @@ function lockAnswer(){
 // ------------------------
 function prepareQuestion(){
     if(displayIndex >= questions.length){
-        // DELAY END SCREEN BY 8 SECONDS
-        setTimeout(()=>{ endGame(true); }, 7000);
+        // DELAY END SCREEN BY 6 SECONDS
+        setTimeout(()=>{ endGame(true); }, 6000);
         return;
     }
     let q = questions[displayIndex];
@@ -269,6 +269,7 @@ function prepareQuestion(){
 
     document.getElementById("showOptionsBtn").style.display = "inline-block";
 }
+
 // ------------------------
 // NEXT QUESTION
 // ------------------------
