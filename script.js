@@ -273,12 +273,18 @@ function prepareQuestion(){
 // ------------------------
 // NEXT QUESTION
 // ------------------------
+// ------------------------
+// NEXT QUESTION
+// ------------------------
 function nextQuestion(){
     if(gameOver) return;
     if(document.getElementById("nextBtn").disabled) return;
+
+    // Play login sound for next question
+    document.getElementById("loginSound").play();
+
     prepareQuestion();
 }
-
 // ------------------------
 // TIMER
 // ------------------------
