@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,77 +5,66 @@
 <title>KBC Quiz Game</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <!-- RULES SCREEN -->
 <div id="rulesScreen">
   <h1>📜 KBC Event – Rules & Guidelines</h1>
-
-<ul>
-
-<li><b>1. Participation</b>
   <ul>
-    <li>Participants can compete individually or in a team of two.</li>
-    <li>All participants must register before the event begins.</li>
-    <li>Team members cannot be changed once registered.</li>
+    <li><b>1. Participation</b>
+      <ul>
+        <li>Participants can compete individually or in a team of two.</li>
+        <li>All participants must register before the event begins.</li>
+        <li>Team members cannot be changed once registered.</li>
+      </ul>
+    </li>
+    <li><b>2. Fastest Finger First (FFF) Round</b>
+      <ul>
+        <li>All participants will play the Fastest Finger First round.</li>
+        <li>The participant who gives the correct answer in the shortest time will reach the Hot Seat.</li>
+        <li>After one contestant completes the Hot Seat round, the process will restart with Fastest Finger First to select the next contestant.</li>
+      </ul>
+    </li>
+    <li><b>3. Hot Seat Round</b>
+      <ul>
+        <li>The selected participant will answer General Knowledge (GK) questions.</li>
+        <li>Each question will have four options (A, B, C, D).</li>
+        <li>The difficulty level of the questions will gradually increase.</li>
+        <li>A timer will be displayed for each question.</li>
+        <li>Contestants must clearly state their final answer before the timer runs out.</li>
+      </ul>
+    </li>
+    <li><b>4. Lifelines</b>
+      <ul>
+        <li>Each contestant/team can use three lifelines (only once each):</li>
+        <li>Audience Poll – Audience votes for the answer.</li>
+        <li>50:50 – Two incorrect options are removed.</li>
+        <li>Swap the Question – The current question is replaced with a new one.</li>
+      </ul>
+    </li>
+    <li><b>5. Determining the Winner</b>
+      <ul>
+        <li>At the end of the event, only ONE WINNER will be declared based on:</li>
+        <li>Maximum number of correct answers and points accumulated.</li>
+        <li>Least number of lifelines used.</li>
+        <li>Minimum time taken.</li>
+        <li>If required, a tie-breaker question will be asked.</li>
+      </ul>
+    </li>
+    <li><b>6. Fair Play</b>
+      <ul>
+        <li>Contestants must submit their phones before sitting on the Hot Seat.</li>
+        <li>Audience members must not reveal or signal answers to the contestant.</li>
+        <li>Any form of cheating or disturbing contestants will result in immediate disqualification.</li>
+        <li>While a contestant is answering, others must remain silent.</li>
+      </ul>
+    </li>
+    <li><b>7. Final Authority</b>
+      <ul>
+        <li>The decision of the host and organizing committee will be final and cannot be challenged.</li>
+      </ul>
+    </li>
   </ul>
-</li>
-
-<li><b>2. Fastest Finger First (FFF) Round</b>
-  <ul>
-    <li>All participants will play the Fastest Finger First round.</li>
-    <li>The participant who gives the correct answer in the shortest time will reach the Hot Seat.</li>
-    <li>After one contestant completes the Hot Seat round, the process will restart with Fastest Finger First to select the next contestant.</li>
-  </ul>
-</li>
-
-<li><b>3. Hot Seat Round</b>
-  <ul>
-    <li>The selected participant will answer General Knowledge (GK) questions.</li>
-    <li>Each question will have four options (A, B, C, D).</li>
-    <li>The difficulty level of the questions will gradually increase.</li>
-    <li>A timer will be displayed for each question.</li>
-    <li>Contestants must clearly state their final answer before the timer runs out.</li>
-  </ul>
-</li>
-
-<li><b>4. Lifelines</b>
-  <ul>
-    <li>Each contestant/team can use three lifelines (only once each):</li>
-    <li>Audience Poll – Audience votes for the answer.</li>
-    <li>50:50 – Two incorrect options are removed.</li>
-    <li>Swap the Question – The current question is replaced with a new one.</li>
-  </ul>
-</li>
-
-<li><b>5. Determining the Winner</b>
-  <ul>
-    <li>At the end of the event, only ONE WINNER will be declared based on:</li>
-    <li>Maximum number of correct answers and points accumulated.</li>
-    <li>Least number of lifelines used.</li>
-    <li>Minimum time taken.</li>
-    <li>If required, a tie-breaker question will be asked.</li>
-  </ul>
-</li>
-
-<li><b>6. Fair Play</b>
-  <ul>
-    <li>Contestants must submit their phones before sitting on the Hot Seat.</li>
-    <li>Audience members must not reveal or signal answers to the contestant.</li>
-    <li>Any form of cheating or disturbing contestants will result in immediate disqualification.</li>
-    <li>While a contestant is answering, others must remain silent.</li>
-  </ul>
-</li>
-
-<li><b>7. Final Authority</b>
-  <ul>
-    <li>The decision of the host and organizing committee will be final and cannot be challenged.</li>
-  </ul>
-</li>
-
-</ul>
-
   <button onclick="goToLogin()">Next</button>
 </div>
 
@@ -86,147 +74,98 @@
   <input type="text" id="playerNameInput" placeholder="Enter your name">
   <input type="password" id="password" placeholder="Enter password">
   <br>
-
-<label for="questionSet">Select Question Set:</label>
-
-<select id="questionSet">
-<option value="1">Set 1</option>
-<option value="2">Set 2</option>
-<option value="3">Set 3</option>
-<option value="4">Set 4</option>
-</select>
-
-<br>
-
-<button onclick="checkLogin()">Login</button>
-
-<p id="loginError"></p>
+  <label for="questionSet">Select Question Set:</label>
+  <select id="questionSet">
+    <option value="1">Set 1</option>
+    <option value="2">Set 2</option>
+    <option value="3">Set 3</option>
+    <option value="4">Set 4</option>
+  </select>
+  <br>
+  <button onclick="checkLogin()">Login</button>
+  <p id="loginError"></p>
 </div>
 
 <!-- GAME SCREEN -->
 <div id="gameScreen">
+  <audio id="bgMusic" loop>
+    <source src="kbc-music.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="loginSound">
+    <source src="login.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="correctSound">
+    <source src="correct.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="wrongSound">
+    <source src="wrong.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="countdownAudio">
+    <source src="countdown.mp3" type="audio/mpeg">
+  </audio>
 
-<audio id="bgMusic" loop>
-<source src="kbc-music.mp3" type="audio/mpeg">
-</audio>
+  <div class="topBar">
+    <div class="playerName">👤 Player: <span id="playerDisplay"></span></div>
+    <div class="timer">
+      ⏱ <span id="time">30</span>
+      <div id="timeBarContainer"><div id="timeBar"></div></div>
+    </div>
+    <div class="lifelines">
+      <button onclick="fiftyFifty()"><img src="5050.PNG"></button>
+      <button onclick="audiencePoll()"><img src="audience1.PNG"></button>
+      <button onclick="skipQuestion()"><img src="skip.PNG"></button>
+    </div>
+  </div>
 
-<audio id="loginSound">
-<source src="login.mp3" type="audio/mpeg">
-</audio>
+  <div class="questionBox"><h2 id="question"></h2></div>
 
-<audio id="correctSound">
-<source src="correct.mp3" type="audio/mpeg">
-</audio>
+  <div class="options">
+    <button class="option" onclick="selectOption('A',this)"></button>
+    <button class="option" onclick="selectOption('B',this)"></button>
+    <button class="option" onclick="selectOption('C',this)"></button>
+    <button class="option" onclick="selectOption('D',this)"></button>
+  </div>
 
-<audio id="wrongSound">
-<source src="wrong.mp3" type="audio/mpeg">
-</audio>
+  <div class="buttonContainer">
+    <button id="showOptionsBtn" onclick="showOptions()">Show Options</button>
+    <button id="lockBtn" onclick="lockAnswer()">🔒 Lock Answer</button>
+    <button id="nextBtn" onclick="nextQuestion()">Next Question</button>
+  </div>
 
-<div class="topBar">
-
-<div class="playerName">
-👤 Player: <span id="playerDisplay"></span>
-</div>
-
-<div class="timer">
-⏱ <span id="time">30</span>
-
-<div id="timeBarContainer">
-<div id="timeBar"></div>
-</div>
-
-</div>
-
-<div class="lifelines">
-
-<button onclick="fiftyFifty()">
-<img src="5050.PNG">
-</button>
-
-<button onclick="audiencePoll()">
-<img src="audience1.PNG">
-</button>
-
-<button onclick="skipQuestion()">
-<img src="skip.PNG">
-</button>
-
-</div>
-
-</div>
-
-<div class="questionBox">
-<h2 id="question"></h2>
-</div>
-
-<div class="options">
-
-<button class="option" onclick="selectOption('A',this)"></button>
-<button class="option" onclick="selectOption('B',this)"></button>
-<button class="option" onclick="selectOption('C',this)"></button>
-<button class="option" onclick="selectOption('D',this)"></button>
-
-</div>
-
-<div class="buttonContainer">
-
-<button id="lockBtn" onclick="lockAnswer()">🔒 Lock Answer</button>
-
-<button id="nextBtn" onclick="nextQuestion()">Next Question</button>
-
-</div>
-
-<div id="pollChart"></div>
-
-<div id="winningAmount">⭐ Winning Points: 0</div>
-
+  <div id="pollChart"></div>
+  <div id="winningAmount">⭐ Winning Points: 0</div>
 </div>
 
 <!-- MONEY LADDER -->
-
 <div class="ladder">
-
-<h2>⭐ Points Ladder</h2>
-
-<ul id="ladderList">
-
-<li>10000000</li>
-<li>9500000</li>
-<li>9000000</li>
-<li>7500000</li>
-<li>5000000</li>
-<li>2500000</li>
-<li>1250000</li>
-<li>640000</li>
-<li>320000</li>
-<li>160000</li>
-<li>80000</li>
-<li>40000</li>
-<li>20000</li>
-<li>10000</li>
-<li>5000</li>
-
-</ul>
-
+  <h2>⭐ Points Ladder</h2>
+  <ul id="ladderList">
+    <li>7,00,00,000</li>
+    <li>1,00,00,000</li>
+    <li>50,00,000</li>
+    <li>25,00,000</li>
+    <li>12,50,000</li>
+    <li>6,40,000</li>
+    <li>3,20,000</li>
+    <li>1,60,000</li>
+    <li>80,000</li>
+    <li>40,000</li>
+    <li>20,000</li>
+    <li>10,000</li>
+    <li>5,000</li>
+    <li>2,000</li>
+    <li>1,000</li>
+  </ul>
 </div>
 
 <div id="confettiContainer"></div>
 
-<script src="script.js"></script>
-
-</body>
-</html>
 <!-- END SCREEN -->
 <div id="endScreen">
-
-<h1 id="finalMessage"></h1>
-
-<button onclick="restartGame()">Restart Game</button>
-
+  <h1 id="finalMessage"></h1>
+  <button onclick="restartGame()">Restart Game</button>
 </div>
 
-
 <script src="script.js"></script>
-
 </body>
 </html>
