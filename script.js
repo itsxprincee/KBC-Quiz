@@ -438,7 +438,7 @@ function endGame(win){
     if(win){
         document.getElementById("finalMessage").innerText="🎉 GRAND WINNER!\nYou won "+amount;
     } else {
-        document.getElementById("finalMessage").innerText="❌ Game Over!!!\nYour Points= "+amount;
+        document.getElementById("finalMessage").innerText="❌ Game Over!!!\nYour Points = "+amount;
     }
 }
 
